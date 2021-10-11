@@ -35,6 +35,9 @@ while lineString:
         
         # Extract attributes from the datum header line
         tagID = lineData[0]
+        obsDate = lineData[3]
+        obsTime = lineData[4]
+        obsLC = lineData[7]
         
         # Extract location info from the next line
         line2String = inputFileObj.readline()
@@ -42,13 +45,10 @@ while lineString:
         # Parse the line into a list
         line2Data = line2String.split()
         
-        # Extract the date we need to variables
+        # Extract the lat and long we need to variables
         obsLat = line2Data[2]
         obsLon= line2Data[5]
-        obsDate = lineData[3]
-        obsTime = lineData[4]
-        obsLC = lineData[7]
-        
+
         # Print results to see how we're doing
         print (tagID,"Date:"+obsDate,"Time:"+obsTime,"LC:"+obsLC,"Lat:"+obsLat,"Long:"+obsLon)
         
