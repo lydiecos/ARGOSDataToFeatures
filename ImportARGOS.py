@@ -45,12 +45,12 @@ while lineString:
         # Extract the date we need to variables
         obsLat = line2Data[2]
         obsLon= line2Data[5]
-        date = lineData[3]
-        time = lineData[4]
-        lC = lineData[7]
+        obsDate = lineData[3]
+        obsTime = lineData[4]
+        obsLC = lineData[7]
         
         # Print results to see how we're doing
-        print (tagID,"Date:"+date,"Time:"+time,"LC:"+lC,"Lat:"+obsLat,"Long:"+obsLon)
+        print (tagID,"Date:"+obsDate,"Time:"+obsTime,"LC:"+obsLC,"Lat:"+obsLat,"Long:"+obsLon)
         
     # Move to the next line so the while loop progresses
     lineString = inputFileObj.readline()
