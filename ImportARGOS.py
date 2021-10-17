@@ -12,6 +12,7 @@
 
 # Import modules
 import sys, os, arcpy
+# Allow outputs to be overwritten
 arcpy.env.overwriteOutput = True
 
 # Set input variables (Hard-wired)
@@ -46,7 +47,7 @@ while lineString:
         # Parse the line into a list
         lineData = lineString.split()
         
-        # Extract attributes from the datum header line
+        # Extract attributes
         tagID = lineData[0]
         obsDate = lineData[3]
         obsTime = lineData[4]
@@ -63,8 +64,30 @@ while lineString:
         obsLon= line2Data[5]
 
         # Print results to see how we're doing
-        print (tagID,"Date:"+obsDate,"Time:"+obsTime,"LC:"+obsLC,"Lat:"+obsLat,"Long:"+obsLon)
-        
+        #print (tagID,"Date:"+obsDate,"Time:"+obsTime,"LC:"+obsLC,"Lat:"+obsLat,"Long:"+obsLon)
+
+        #Try to convert the coordinates to numbers
+        try:
+            
+            # Convert raw coordinate strings to numbers
+            if obsLat[-1] == 'N':
+                obsLat = float(obsLat[:-1])
+            else:
+                obsLat = float(obsLat[:-1]) * -1
+            if obsLon[-1] == 'E':
+                obsLon = float(obsLon[:-1])
+            else:
+                obsLon = float(obsLon[:-1]) * -1
+                    
+            # Construct a point object from the feature class
+            obsPoint = arcpy.Point()
+            obsPoint.X = obsLon
+            obsPoint.Y = obsLat
+            
+        #Handle any error
+        except Exception as e:
+            print(f"Error adding record {tagID} to the output: {e}")
+            
     # Move to the next line so the while loop progresses
     lineString = inputFileObj.readline()
     
