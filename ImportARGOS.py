@@ -105,7 +105,7 @@ for file in inputFiles:
                 
             #Handle any error
             except Exception as e:
-                arcpy.AddWarning()
+                arcpy.AddWarning(f"Error adding record {tagID} to the output: {e}")
          
         # Move to the next line so the while loop progresses
         lineString = inputFileObj.readline()
